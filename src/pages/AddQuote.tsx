@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useQuotes, type Quote } from "../App";
+import { type Quote } from "../App";
 import { toast } from "sonner";
 import { ArrowLeft } from "lucide-react";
 import axios from "axios";
 
 export default function AddQuote() {
   const navigate = useNavigate();
-  const { addQuote } = useQuotes();
 
   const initialQuoteValues: Quote = {
     quoteNumber: null,

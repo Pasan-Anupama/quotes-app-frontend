@@ -17,7 +17,7 @@ export default function QuoteTable({
   onDelete,
 }: QuoteTableProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 400;
+  const itemsPerPage = 10;
   const totalPages = Math.ceil(quotes.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
 

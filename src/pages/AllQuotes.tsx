@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useQuotes, type Quote } from "../App";
 import axios from "axios";
 import { toast } from "sonner";
@@ -10,7 +10,7 @@ import QuoteEditModal from "../components/QuoteEditModal";
 import DeleteConfirmationModal from "../components/DeleteConfirmation";
 
 export default function AllQuotes() {
-  const { quotes, updateQuote, deleteQuote } = useQuotes();
+  const { updateQuote, deleteQuote } = useQuotes();
   const [fetchedQuotes, setFetchedQuotes] = useState<Quote[]>([]);
   const [loading, setLoading] = useState(true);
   const API_URL = import.meta.env.VITE_API_URL;

@@ -67,31 +67,31 @@ export const useQuotes = () => useContext(QuotesContext);
 
 // Mock data generator (unchanged)
 const generateMockQuotes = (): Quote[] => {
-  const customers = [
-    "Acme Corp",
-    "TechStart Inc",
-    "BuildRight LLC",
-    "Global Solutions",
-    "Premium Services",
-    "NextGen Systems",
-    "Smart Industries",
-    "Elite Enterprises",
-  ];
+  // const customers = [
+  //   "Acme Corp",
+  //   "TechStart Inc",
+  //   "BuildRight LLC",
+  //   "Global Solutions",
+  //   "Premium Services",
+  //   "NextGen Systems",
+  //   "Smart Industries",
+  //   "Elite Enterprises",
+  // ];
   // const statuses: Quote["status"][] = [
   //   "Pending",
   //   "Approved",
   //   "Rejected",
   //   "Draft",
   // ];
-  const categories = [
-    "Software",
-    "Hardware",
-    "Consulting",
-    "Support",
-    "Training",
-  ];
-  const employees = ["John Smith", "Sarah Johnson", "Mike Chen", "Emily Davis"];
-  const regions = ["North", "South", "East", "West"];
+  // const categories = [
+  //   "Software",
+  //   "Hardware",
+  //   "Consulting",
+  //   "Support",
+  //   "Training",
+  // ];
+  // const employees = ["John Smith", "Sarah Johnson", "Mike Chen", "Emily Davis"];
+  // const regions = ["North", "South", "East", "West"];
 
   const quotes: Quote[] = [];
   const now = new Date();
