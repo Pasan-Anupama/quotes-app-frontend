@@ -20,7 +20,9 @@ export default function QuoteTable({
   const itemsPerPage = 400;
   const totalPages = Math.ceil(quotes.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentQuotes = quotes.slice(startIndex, startIndex + itemsPerPage);
+
+  const safeQuotes = Array.isArray(quotes) ? quotes : [];
+  const currentQuotes = safeQuotes.slice(startIndex, startIndex + itemsPerPage);
 
   // const getStatusBadge = (status: Quote["status"]) => {
   //   const map = {

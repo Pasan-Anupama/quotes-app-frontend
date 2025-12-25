@@ -25,67 +25,98 @@ export default function DashboardCharts({ quotes }: DashboardChartsProps) {
     value != null ? `$${value.toLocaleString()}` : "$0";
 
   // 1. Monthly Trend – Number of quotes created in last 6 months
+  // const monthlyData = () => {
+  //   const months = [
+  //     "Jan",
+  //     "Feb",
+  //     "Mar",
+  //     "Apr",
+  //     "May",
+  //     "Jun",
+  //     "Jul",
+  //     "Aug",
+  //     "Sep",
+  //     "Oct",
+  //     "Nov",
+  //     "Dec",
+  //   ];
+  //   const now = new Date();
+  //   const data = [];
+
+  //   for (let i = 5; i >= 0; i--) {
+  //     const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+  //     const monthStart = new Date(date.getFullYear(), date.getMonth(), 1);
+  //     const monthEnd = new Date(
+  //       date.getFullYear(),
+  //       date.getMonth() + 1,
+  //       0,
+  //       23,
+  //       59,
+  //       59
+  //     );
+
+  //     const monthQuotes = quotes.filter((q) => {
+  //       if (!q.createdAt) return false;
+  //       const created = new Date(q.createdAt);
+  //       return created >= monthStart && created <= monthEnd;
+  //     });
+
+  //     data.push({
+  //       month: months[date.getMonth()],
+  //       year: date.getFullYear(),
+  //       shortLabel: `${months[date.getMonth()]} ${date
+  //         .getFullYear()
+  //         .toString()
+  //         .slice(-2)}`,
+  //       count: monthQuotes.length,
+  //     });
+  //   }
+  //   return data;
+  // };
+
   const monthlyData = () => {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
+    const safeQuotes = Array.isArray(quotes) ? quotes : [];
+    const months = ["Jan","Feb","Mar","Apr","May","Jun"];
     const now = new Date();
     const data = [];
-
+  
     for (let i = 5; i >= 0; i--) {
       const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
       const monthStart = new Date(date.getFullYear(), date.getMonth(), 1);
-      const monthEnd = new Date(
-        date.getFullYear(),
-        date.getMonth() + 1,
-        0,
-        23,
-        59,
-        59
-      );
-
-      const monthQuotes = quotes.filter((q) => {
+      const monthEnd = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59);
+  
+      const monthQuotes = safeQuotes.filter((q) => {
         if (!q.createdAt) return false;
         const created = new Date(q.createdAt);
         return created >= monthStart && created <= monthEnd;
       });
-
+  
       data.push({
         month: months[date.getMonth()],
         year: date.getFullYear(),
-        shortLabel: `${months[date.getMonth()]} ${date
-          .getFullYear()
-          .toString()
-          .slice(-2)}`,
+        shortLabel: `${months[date.getMonth()]} ${date.getFullYear().toString().slice(-2)}`,
         count: monthQuotes.length,
       });
     }
+  
     return data;
   };
+  
 
-  // 2. Quotes by State – Top 7 states + "Others"
-  const stateCounts = quotes.reduce((acc, q) => {
-    const state = q.state?.trim() || "Unknown";
-    acc[state] = (acc[state] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
+  // 2. Quotes by State – Top 5 states + "Others"
+  const stateCounts = Array.isArray(quotes)
+    ? quotes.reduce((acc, q) => {
+        const state = q.state?.trim() || "Unknown";
+        acc[state] = (acc[state] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>)
+    : {};
 
   const stateEntries = Object.entries(stateCounts).sort(
     ([, a], [, b]) => b - a
   );
 
-  const top7States = stateEntries.slice(0, 7).map(([state, count]) => ({
+  const top7States = stateEntries.slice(0, 5).map(([state, count]) => ({
     name: state,
     value: count,
   }));
@@ -112,8 +143,10 @@ export default function DashboardCharts({ quotes }: DashboardChartsProps) {
   ];
 
   // 3. Total Value by Manufacturing Type – Bar chart
+  const safeQuotes = Array.isArray(quotes) ? quotes : [];
+
   const manufacturingValueData = Object.entries(
-    quotes.reduce((acc, q) => {
+    safeQuotes.reduce((acc, q) => {
       const type = q.manufacturingType || "Unspecified";
       const value = q.value || 0;
       acc[type] = (acc[type] || 0) + value;
@@ -170,7 +203,7 @@ export default function DashboardCharts({ quotes }: DashboardChartsProps) {
         <div className="card border-0 shadow-sm">
           <div className="card-body p-4">
             <h5 className="card-title mb-4 fw-semibold">
-              Quotes by State (Top 7)
+              Quotes by State (Top 5)
             </h5>
             <ResponsiveContainer width="100%" height={350}>
               <PieChart>

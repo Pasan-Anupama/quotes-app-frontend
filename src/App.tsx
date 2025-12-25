@@ -42,7 +42,7 @@ export interface Quote {
   createdAt?: string | null;
   updatedAt?: string | null;
   value: number | null;
-  valueRaw: string | null;
+  valueRaw: number | null;
 
   // status: "Pending" | "Approved" | "Rejected" | "Draft";
   //   customerName: string;

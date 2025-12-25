@@ -14,12 +14,13 @@ import type { Quote } from "../App";
 export default function Analytics() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [loading, setLoading] = useState(true);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchQuotes = async () => {
       setLoading(true);
       try {
-        const res = await axios.get("http://localhost:5000/api/quotes");
+        const res = await axios.get(`${API_URL}/quotes`);
         setQuotes(res.data || []);
       } catch (err) {
         console.error("Failed to load analytics data:", err);

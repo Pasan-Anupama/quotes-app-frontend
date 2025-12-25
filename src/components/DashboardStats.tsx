@@ -9,9 +9,13 @@ interface DashboardStatsProps {
 export default function DashboardStats({ quotes }: DashboardStatsProps) {
   const total = quotes.length;
   //To be implemented
-  const pending = quotes.filter((q) => q.status === "Pending").length;
-  const approved = quotes.filter((q) => q.status === "Approved").length;
-  const rejected = quotes.filter((q) => q.status === "Rejected").length;
+  // const pending = quotes.filter((q) => q.status === "Pending").length;
+  // const approved = quotes.filter((q) => q.status === "Approved").length;
+  // const rejected = quotes.filter((q) => q.status === "Rejected").length;
+  //Use correct values once its done.
+  const pending = 56;
+  const approved = 34;
+  const rejected = 3;
 
   const stats = [
     { label: "Total Quotes", value: total, icon: FileText, color: "primary" },

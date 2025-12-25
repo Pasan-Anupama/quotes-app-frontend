@@ -33,6 +33,7 @@ export default function AddQuote() {
 
   const [formData, setFormData] = useState<Quote>(initialQuoteValues);
   const [saving, setSaving] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -73,9 +74,10 @@ export default function AddQuote() {
     e.preventDefault();
     setSaving(true);
     try {
-      await axios.post("http://localhost:5000/api/quotes", {
+      await axios.post(`${API_URL}/quotes`, {
         ...formData,
         value: formData.value ? Number(formData.value) : null,
+        valueRaw: formData.valueRaw ? Number(formData.valueRaw) : null,
       });
       setSaving(false);
       toast.success("Quote added successfully!");

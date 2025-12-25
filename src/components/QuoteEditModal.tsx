@@ -38,7 +38,7 @@ export default function QuoteEditModal({
         sentTo5: quote.sentTo5 || "",
         estimator5: quote.estimator5 || "",
         value: quote.value || 0,
-        valueRaw: quote.valueRaw || "",
+        valueRaw: quote.valueRaw || 0,
       });
     }
   }, [quote]);
@@ -71,7 +71,7 @@ export default function QuoteEditModal({
       sentTo5: form.sentTo5,
       estimator5: form.estimator5,
       value: form.value ? Number(form.value) : null,
-      valueRaw: form.valueRaw ? form.valueRaw : null,
+      valueRaw: form.valueRaw ? Number(form.valueRaw) : null,
     };
 
     onSave(quote.id!, updatedData);
@@ -192,7 +192,7 @@ export default function QuoteEditModal({
                 <div className="col-md-6">
                   <label className="form-label">Value Raw</label>
                   <input
-                    type="text"
+                    type="number"
                     className="form-control"
                     value={form.valueRaw || ""}
                     onChange={(e) => handleChange("valueRaw", e.target.value)}

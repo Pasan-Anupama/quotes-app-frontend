@@ -13,6 +13,7 @@ export default function AllQuotes() {
   const { quotes, updateQuote, deleteQuote } = useQuotes();
   const [fetchedQuotes, setFetchedQuotes] = useState<Quote[]>([]);
   const [loading, setLoading] = useState(true);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // Filter states
   const [searchTerm, setSearchTerm] = useState("");
@@ -69,7 +70,7 @@ export default function AllQuotes() {
   const fetchQuotes = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:5000/api/quotes");
+      const res = await axios.get(`${API_URL}/quotes`);
       setFetchedQuotes(res.data || []);
     } catch (err) {
       console.error(err);
@@ -98,10 +99,7 @@ export default function AllQuotes() {
     if (!id) return;
 
     try {
-      const response = await axios.put(
-        `http://localhost:5000/api/quotes/${id}`,
-        data
-      );
+      const response = await axios.put(`${API_URL}/quotes/${id}`, data);
 
       setFetchedQuotes((prev) =>
         prev.map((quote) =>
@@ -126,9 +124,7 @@ export default function AllQuotes() {
 
     setDeleting(true);
     try {
-      await axios.delete(
-        `http://localhost:5000/api/quotes/${selectedQuote.id}`
-      );
+      await axios.delete(`${API_URL}/quotes/${selectedQuote.id}`);
 
       setFetchedQuotes((prev) => prev.filter((q) => q.id !== selectedQuote.id));
       deleteQuote(selectedQuote.id);
@@ -204,7 +200,7 @@ export default function AllQuotes() {
 
               <div className="mt-4">
                 <QuoteTable
-                  quotes={fetchedQuotes}
+                  quotes={fetchedQuotes || []}
                   onView={handleView}
                   onEdit={handleEdit}
                   onDelete={handleDelete}
