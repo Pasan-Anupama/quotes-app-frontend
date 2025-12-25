@@ -12,7 +12,7 @@ import DeleteConfirmationModal from "../components/DeleteConfirmation";
 export default function AllQuotes() {
   const { updateQuote, deleteQuote } = useQuotes();
   const [fetchedQuotes, setFetchedQuotes] = useState<Quote[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [_loading, setLoading] = useState(true);
   const API_URL = import.meta.env.VITE_API_URL;
 
   // Filter states

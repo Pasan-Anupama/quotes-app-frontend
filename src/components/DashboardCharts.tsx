@@ -216,7 +216,7 @@ export default function DashboardCharts({ quotes }: DashboardChartsProps) {
                   outerRadius={110}
                   dataKey="value"
                 >
-                  {stateData.map((entry, i) => (
+                  {stateData.map((_entry, i) => (
                     <Cell
                       key={`cell-${i}`}
                       fill={stateColors[i % stateColors.length]}

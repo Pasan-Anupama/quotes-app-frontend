@@ -31,7 +31,7 @@ export default function AddQuote() {
   };
 
   const [formData, setFormData] = useState<Quote>(initialQuoteValues);
-  const [saving, setSaving] = useState(false);
+  const [_saving, setSaving] = useState(false);
   const API_URL = import.meta.env.VITE_API_URL;
 
   const handleChange = (
